@@ -1,0 +1,84 @@
+20june 
+i created the signup and signin python script. it is only the front end part.      will add functionality later.
+
+21june
+connected signin and signup to database.
+
+22june 
+Added the home page connected to signin.
+
+23june
+completed the home page user interface and linked to signin page.
+* difficulty in making the image button while opening after the signin.
+
+Start
+├─ Import Required Modules
+│
+├─ Define Function login_user()
+│   ├─ Check if username or password is empty
+│   │   └─ Show error message "All fields are required!"
+│   └─ Establish database connection
+│       ├─ Show error message "Connection is not established!" if connection fails
+│       ├─ Execute "use userdata" query
+│       └─ Execute SELECT query with entered username and password
+│           ├─ If no rows are returned
+│           │   └─ Show error message "Invalid username or password"
+│           └─ Else
+│               └─ Show success message "Login is Successful!"
+│                   ├─ Create instance of HomePage
+│                   ├─ Call run() method of HomePage
+│                   └─ Hide login window
+│
+├─ Define Function signup_page()
+│   └─ Destroy login window
+│       └─ Import signup module and open signup page
+│
+├─ Define Function on_entry(event)
+│   └─ If username Entry is clicked and contains default text "Username"
+│       └─ Clear the default text
+│
+├─ Define Function on_entry1(event)
+│   └─ If password Entry is clicked and contains default text "Password"
+│       └─ Clear the default text
+│
+├─ Define Function hide()
+│   └─ Change eye button image to closed eye
+│       └─ Set password Entry to show asterisks
+│
+├─ Define Function show()
+│   └─ Change eye button image to open eye
+│       └─ Set password Entry to show plaintext
+│
+├─ Create Login Window
+│   ├─ Set window title, size, and background image
+│   ├─ Create and place GUI components
+│   ├─ Associate callbacks with buttons and entry widgets
+│   └─ Enter event loop with mainloop()
+│
+└─ End
+
+Start
+│
+├─ Define class HomePage
+│   │
+│   ├─ Define __init__() method
+│   │   ├─ Initialize the login window attribute
+│   │   └─ Create and configure the home window
+│   │
+│   ├─ Define update_dropdown2() method
+│   │   └─ Determine the selected option from dropdown1
+│   │       ├─ Based on the option, update options_list2
+│   │       └─ Update dropdown2 values and set default selection
+│   │
+│   ├─ Define logout() method
+│   │   ├─ Destroy the home window
+│   │   └─ Display the login window
+│   │
+│   └─ Define run() method
+│       └─ Run the home window event loop
+│
+├─ Check if the current module is the main module
+│   ├─ Create an instance of HomePage (with a login window as a parameter)
+│   └─ Run the home page
+│
+└─ End
