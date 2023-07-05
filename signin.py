@@ -45,11 +45,11 @@ def on_entry1(event):
     if passwordEntry.get() == 'Password':
         passwordEntry.delete(0, END)
 def hide():
-    openeye.config(file='closeye.png')
+    openeye.config(file='images/closeye.png')
     passwordEntry.config(show='*')
     eyeButton.config(command=show)
 def show():
-    openeye.config(file='openeye.png')
+    openeye.config(file='images/openeye.png')
     passwordEntry.config(show='')
     eyeButton.config(command=hide)
 
@@ -61,7 +61,7 @@ login_window.resizable(0, 0)
 login_window.title('Login Page')
 
 # background~
-bgImage = ImageTk.PhotoImage(file='bg.jpg')
+bgImage = ImageTk.PhotoImage(file='images/bg.jpg')
 bgLabel = Label(login_window, image=bgImage)
 bgLabel.place(x=0, y=0)
 # bgLabel.grid(row=0,column=0)

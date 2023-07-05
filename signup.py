@@ -69,7 +69,7 @@ signup_window.title('Signup Page')
 signup_window.resizable(0, 0)
 
 
-background = ImageTk.PhotoImage(file='bg.jpg')
+background = ImageTk.PhotoImage(file='images/bg.jpg')
 
 bgLabel = Label(signup_window, image=background)
 bgLabel.grid()
