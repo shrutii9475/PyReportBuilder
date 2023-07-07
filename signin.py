@@ -18,7 +18,7 @@ def login_user():
         except:
             messagebox.showerror(('Error', 'Connection is not established!'))
             return
-        print ('connection ban gya')
+        # print ('connection ban gya')
         query = 'use userdata'
         mycursor.execute(query)
         query = 'select * from data where username=%s and password=%s'
@@ -27,7 +27,7 @@ def login_user():
         if row == None:
             messagebox.showerror("Error","Invalid username or password")
         else:
-            messagebox.showinfo('Welcome','Login is Successfull !!😊')
+            messagebox.showinfo('Welcome','Login is Successfull !!')
             # home_page()
             login_window.withdraw()
             home_page = HomePage(login_window)
@@ -93,8 +93,8 @@ frame1.place(x=580, y=222)
 frame2 = Frame(login_window, bg='#00043C', width=250, height=2)
 frame2.place(x=580, y=282)
 
-openeye = PhotoImage(file='openeye.png')
-closeye = PhotoImage(file='closeye.png')
+openeye = PhotoImage(file='images/openeye.png')
+closeye = PhotoImage(file='images/closeye.png')
 
 eyeButton = Button(login_window, image=openeye, bd=0, bg='white',
                    activebackground='white', cursor='hand2', command=hide)

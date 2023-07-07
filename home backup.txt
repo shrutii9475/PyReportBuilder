@@ -1,17 +1,18 @@
+# 07/07/2023
+
 from tkinter import *
 from tkinter import Tk, Button, Label, Frame, filedialog, messagebox, ttk
 from PIL import ImageTk, Image
 import mysql.connector
-from mysql.connector import Error
+# import sqlite3
 import pandas as pd
 
 
-
 class HomePage:
-    def __init__(self,login_window ):
-        self.login_window = login_window
+    # def __init__(self,login_window ):
+    #     self.login_window = login_window
 
-        # def __init__(self):
+    def __init__(self):
         # GUI PART
         self.home_window = Tk()
         self.home_window.title("Home Page")
@@ -38,7 +39,7 @@ class HomePage:
         self.username = 'root'
         self.password = 'Shruti098%'
         self.database = 'userdata'
-        self.table_name = 'trainingsdb'
+        # self.table_name = 'sampledb'
 
         # # Connect to the MySQL database
         # self.conn = mysql.connector.connect( host = self.host, user = self.username, password = self.password, database = self.database )
@@ -102,7 +103,7 @@ class HomePage:
         self.dropdown1.bind("<<ComboboxSelected>>", self.update_dropdown2)
 
         # Add a button to *generate report* in frame 2
-        self.report_button = Button(self.frame2, text="Generate", font=("Helvetica", 16, 'bold'), bg="#FF9800", fg="#ffffff", command = self.fetch_data)
+        self.report_button = Button(self.frame2, text="Generate", font=("Helvetica", 16, 'bold'), bg="#FF9800", fg="#ffffff")
         self.report_button.pack(padx=10, pady=10)
 
     def update_dropdown2(self, event):
@@ -119,7 +120,7 @@ class HomePage:
             self.options_list2 = ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala","Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "New Delhi", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttarakhand", "Uttar Pradesh", "West Bengal"]
             # break
         elif selected_option == "Organization Sector":
-            self.options_list2 = ('Central Government', 'State Government', 'Defence', 'PSU', 'Finance','Banking', 'Power', 'Energy', 'Telecom', 'Transport','Manufacturing', 'LEA', 'Academia', 'Private', 'IT', 'ITeS')
+            self.options_list2 = ('Central Government Ministry', 'State Government Ministry', 'Defence', 'PSU', 'Finance','Banking', 'Power', 'Energy', 'Telecom', 'Transport''Manufacturing', 'LEA', 'Academia', 'Private', 'IT', 'ITeS')
             # break
         elif selected_option == "Organization belongs to SME/Non-SME":
             self.options_list2 = ["SME", "Non-SME"]
@@ -128,7 +129,7 @@ class HomePage:
             self.options_list2 = ["Yes", "No"]
             # break
         elif selected_option == "Officer belongs to PWD category (Yes/No)":
-            self.options_list2 = ["Yes", "No"]
+            self.options_list2 = ["Y", "N"]
             # break
         else:
             self.options_list2 = ["Select"]
@@ -191,7 +192,7 @@ class HomePage:
         self.conn = mysql.connector.connect( host = self.host, user = self.username, password = self.password, database = self.database )
         self.cursor = self.conn.cursor()
 
-        insert_query = ''' INSERT INTO trainingsdb (
+        insert_query = ''' INSERT INTO sampledb (
             TrainingProgramName,
             TrainingProgramDate,
             Name,
@@ -245,114 +246,9 @@ class HomePage:
             # Display a message box with the success count
             messagebox.showinfo("Query Execution Result", f"Query executed successfully for {success_count} records.")
 
-    def fetch_data(self):
 
-        # Create a mapping dictionary for column name variations
-        column_mapping = {
-            'SNo'                 : 'ID',
-            'Training Program Name' : 'TrainingProgramName',
-            'Training Program Date' : 'TrainingProgramDate',
-            'Name of the Officer'   : 'Name',
-            'Designation'           : 'Designation',
-            'Gender'                : 'Gender',
-            'Email Address'         : 'Email',
-            'Mobile Number'         : 'MobileNumber',
-            'Organization'          : 'Organization',
-            'State'                 : 'State',
-            'Organization Sector'   : 'OrganizationSector',
-            'Office Address with State/UT details'     : 'OfficeAddress',
-            'Organization belongs to SME/Non-SME'      : 'OrganizationCategorySMEorNonSME',
-            'Officer belongs to SC/ST (Yes/No)'        : 'OfficerBelongsToSCOrST',
-            'Officer belongs to PWD category (Yes/No)' : 'OfficerBelongsToPWD'
-        }
-
-        # Obtain the user input for column name and search value
-        column = self.dropdown1.get()
-        value = self.dropdown2.get()
-
-        column_name = column_mapping[column]
-
-        # Connect to the MySQL database
-        self.conn = mysql.connector.connect( host = self.host, user = self.username, password = self.password, database = self.database )
-        self.cursor = self.conn.cursor()
-
-        try: 
-            # Query 1
-            query1 = ''' SELECT (SELECT COUNT(*) FROM trainingsdb) AS total_candidates, (SELECT COUNT(*) FROM trainingsdb WHERE LOWER(gender) LIKE LOWER('%female%')) AS total_females, (SELECT COUNT(*) FROM trainingsdb WHERE (OfficerBelongsToSCOrST) LIKE LOWER('%yes%')) AS SC_ST_candidates, COUNT(DISTINCT State) AS total_distinct_states FROM trainingsdb; '''
-            
-            # Get the result row
-            self.cursor.execute(query1)
-            result1 = self.cursor.fetchall()
-
-            # Get the column names
-            columns = [desc[0] for desc in self.cursor.description]
-            # Combine column names and result rows
-            rows_with_column_names = [columns] + list(result1)
-            # Print the result as a table
-            for row in rows_with_column_names:
-                print("{:<20} {:<20} {:<20} {:<20}".format(*row))
-
-            print('')
-            print (column,value)
-            print('')
-
-            # Query 2
-
-            # Check if the user input matches any keys in the mapping dictionary
-            # if column in column_mapping:
-            #     # Get the corresponding column name from the mapping dictionary
-            #     column_name = column_mapping[column]
-            # else:
-            #     print("Invalid column name input.")
-            #     messagebox.showinfo('column', "column not present!!")
-            #     return
-
-            # Construct and execute the SQL query 
-
-            # Fetch all the rows from the result
-            query3 = f"SELECT COUNT(*) FROM trainingsdb WHERE LOWER({column_name}) = LOWER('{value}')"
-            self.cursor.execute(query3)
-            result3 = self.cursor.fetchall()
-
-            print( f"COUNT of {column} with value {value} : {result3}")
-
-
-            # Fetch all the rows from the result
-            query2 = f"SELECT * FROM trainingsdb WHERE LOWER({column_name}) = LOWER('{value}')"
-            self.cursor.execute(query2)
-            result2 = self.cursor.fetchall()
-
-
-            # Get the column names
-            columns2 = [desc[0] for desc in self.cursor.description]
-            # Combine column names and result rows
-            rows_with_column_names = [columns2] + list(result2)
-            # Print the result as a table
-            for row in rows_with_column_names:
-                print("{:<5} {:<5} {:<15} {:<10} {:<10} {:<5} {:<10} {:<10} {:<10} {:<10} {:<15} {:<20} {:<10} {:<5} {:<5}".format(*row))
-            # Process the result as needed
-            # for row in result2:
-            #     print(row)
-
-            # # Get the result table
-            # query2 = f"SELECT * FROM trainingsdb WHERE {column_name} LIKE %s"
-            # search_pattern = '%' + column_value + '%'
-            # self.cursor.execute(query, (search_pattern,))
-
-            # result2 = cursor.fetchall()
-            # # Print the result as a table
-            # print (result2)
-
-            # print(columns)
-            # print(result)
-
-        except mysql.connector.Error as e:
-            print("Error executing the queries:", e)
-        except Error as e:
-            print("Error executing the search query:", e)
-        
-        self.cursor.close()
-        self.conn.close()
+    def fetch_data():
+        pass
 
     def generate_report():
         pass
@@ -367,7 +263,7 @@ class HomePage:
 
 # Example usage:
 if __name__ == "__main__":
-    home_page = HomePage(login_window)
+    # home_page = HomePage(login_window)
     home_page = HomePage()
     home_page.run()
 

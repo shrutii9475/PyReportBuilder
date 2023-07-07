@@ -82,3 +82,149 @@ Start
 │   └─ Run the home page
 │
 └─ End
+
+have partially completed the home page.
+
+Start
+|
+|--> Create GUI window
+|    |
+|    |--> Set window properties (title, size, etc.)
+|    |--> Set background color
+|    |--> Create and display the "Report Generator" heading label
+|    |--> Create and display the "Log Out" button
+|    |--> Create frames (frame1 and frame2)
+|    |--> Call the menu method to create the menu bar
+|    |--> Call the GUIofapp method to create GUI components
+|
+|--> Define method: GUIofapp
+|    |
+|    |--> Create frame1
+|    |    |
+|    |    |--> Set frame properties (background, border, size)
+|    |    |--> Create and display the "Upload Excel File" heading label
+|    |    |--> Create and display the "Choose a File" button
+|    |    |--> Create a label to display the selected filename
+|    |    |--> Create and display the "Upload to Database" button
+|    |
+|    |--> Create frame2
+|    |    |
+|    |    |--> Set frame properties (background, border, size)
+|    |    |--> Create and display the "Generate Report" heading label
+|    |    |--> Create and display the "Select options from Dropdown" subheading label
+|    |    |--> Create the first dropdown menu
+|    |    |--> Create the second dropdown menu
+|    |    |--> Create and display the "Generate" button
+|
+|--> Define method: update_dropdown2
+|    |
+|    |--> Get the selected option from the first dropdown
+|    |--> Based on the selected option:
+|    |    |--> Update the options in the second dropdown
+|    |    |--> Set the second dropdown to the default value
+|
+|--> Define method: menu
+|    |
+|    |--> Define the functions for menu options (myfun and quitw)
+|    |--> Create the menu bar
+|    |    |--> Add the "File" menu option
+|    |    |--> Add the "Quit" menu option
+|    |    |--> Add the "Help" menu option
+|
+|--> Define method: open_file
+|    |
+|    |--> Open a file dialog to select an Excel file
+|    |--> If a file is selected:
+|    |    |    
+|    |    |--> Read the data from the file using pandas
+|    |    |    
+|    |    |--> If the file is empty
+|    |    |    |--> Display an error message
+|    |    |--> If the file has data:
+|    |    |    |--> Display the selected filename
+|    |    |    |--> Display a success message
+|    |    |
+|    |--> If no file is selected:
+|    |    |
+|    |    |--> Display a failure message
+|    
+|--> Define method: send_data_to_database
+|    |
+|    |--> Connect to the MySQL database
+|    |    |
+|    |    |--> Set the connection parameters (host, username, password, database)
+|    |    |--> Create a connection object
+|    |    |--> Create a cursor object
+|    |
+|    |--> Define the INSERT query
+|    |
+|    |--> Initialize a success count variable
+|    |
+|    |--> Iterate over the rows in the Excel data
+|    |    |
+|    |    |--> Create an empty list to store record data
+|    |    |--> Iterate over the columns in the row
+|    |    |    |
+|    |    |    |--> Skip the 'SNo' column
+|    |    |    |--> Get the value from the column
+|    |    |    |--> Handle NaN values
+|    |    |    |--> Append the value to the record data list
+|    |    |
+|    |    |--> Execute the INSERT query with record data
+|    |    |--> Commit the changes to the database
+|    |    |--> Increment the success count
+|    |    |--> Handle exceptions (display error if any)
+|    |
+|    |--> Close the cursor and database connection
+|    |
+|    |--> Check the success count
+|    |    |
+|    |    |--> If success count is zero: Display an error message
+|    |    |--> If success count is non-zero: Display a success message with the count
+|
+|--> Define method: fetch_data
+|    |
+|    |--> Placeholder: No implementation provided
+|
+|--> Define method: generate_report
+|    |
+|    |--> Placeholder: No implementation provided
+|
+|--> Define method: logout
+|    |
+|    |--> Destroy the home window
+|    |--> Show the login window
+|
+End
+
+# Example usage:
+if __name__ == "__main__":
+    # home_page = HomePage(login_window)
+    home_page = HomePage()
+    home_page.run()
+
+|--> Define method: run
+|    |
+|    |--> Run the main event loop of the home window
+|
+|--> Check if the module is being run as the main script
+|    |
+|    |--> If the condition is true:
+|    |    |
+|    |    |--> Create an instance of the HomePage class
+|    |    |--> Run the `run` method of the home_page instance
+|    |
+|    |--> If the condition is false:
+|    |    |
+|    |    |--> Do nothing
+|
+End
+
+
+
+06/07/23
+Added the files in git github.
+
+07072023
+
+updated def send_data_to_database
