@@ -1,3 +1,4 @@
+## 10-07-2023
 from tkinter import *
 from tkinter import Tk, Button, Label, Frame, filedialog, messagebox, ttk
 from PIL import ImageTk, Image
@@ -34,7 +35,7 @@ class HomePage:
         self.GUIofapp()
 
         self.host = 'localhost'
-        self.username = 'root'
+        self.username = 'self.frame2'
         self.password = 'Shruti098%'
         self.database = 'userdata'
         self.table_name = 'trainingsdb'
@@ -47,73 +48,103 @@ class HomePage:
 
         # frame 1
         self.frame1 = Frame(self.home_window, bg=self.bg_color, bd=2, relief="groove", width=500, height=500)
-        self.frame1.pack(padx=(40,15), pady=70, side=LEFT, fill=BOTH, expand=True)
+        self.frame1.pack(padx=(40,20), pady=30, side=LEFT, fill=BOTH, expand=True)
         
         # frame 2
         self.frame2 = Frame(self.home_window, bg=self.bg_color, bd=2, relief="ridge", width=500, height=500)
-        self.frame2.pack(padx=(15,15), pady=70, side=LEFT, fill=BOTH, expand=True)
-
-        # frame 3
-        self.frame3 = Frame(self.home_window, bg=self.bg_color, bd=2, relief="groove", width=500, height=500)
-        self.frame3.pack(padx=(15,40), pady=70, side=LEFT, fill=BOTH, expand=True)
+        self.frame2.pack(padx=(20,40), pady=30, side=LEFT, fill=BOTH, expand=True)
 
         # self.frame1.place(x=75, y=200)
         # self.frame2.place(x=400, y=200)
 
-        # ------------------------------------------- FRAME 01
         # Add a heading 1 in frame 1
         self.heading1 = Label(self.frame1, text='Upload Excel File', font=('Microsoft Yahei UI Light', 20, 'bold'), bg=self.bg_color, fg='#00043C')
         self.heading1.pack(padx=10, pady=10)
 
-        self.subheading11 = Label(self.frame1, text="Select a file to upload in Database.", font=('Microsoft Yahei UI Light', 12), bg=self.bg_color, fg='#00043C')
-        self.subheading11.pack(padx=10, pady=10)
-
         # Add a button *Choose a File* in frame 1
-        self.button11 = Button(self.frame1, text='Choose a File', font=("Helvetica", 12, 'bold'), bg='green3', fg='white', command=self.open_file)
-        self.button11.pack(padx=10, pady=10)
+        self.button1 = Button(self.frame1, text='Choose a File', font=("Helvetica", 16, 'bold'), bg='green3', fg='white', command=self.open_file)
+        self.button1.pack(padx=10, pady=10)
 
         # Add a Label 1 in frame 1
         self.filename_label = Label(self.frame1, text="", font=('Microsoft Yahei UI Light', 9, 'bold'), wraplength=280, bg=self.bg_color) # Adjust wrap length as needed
         self.filename_label.pack()
 
         # Add a button  *Upload to DataBase*  in frame 1
-        self.button12 = Button(self.frame1, text='Upload to DataBase', font=("Helvetica", 12, 'bold'), bg='green3', fg='white', command=self.send_data_to_database)
+        self.button12 = Button(self.frame1, text='Upload to DataBase', font=("Helvetica", 16, 'bold'), bg='green3', fg='white', command=self.send_data_to_database)
         self.button12.pack(padx=10, pady=10)
 
-        # ----------------------------------------- FRAME 02
         # Add a heading 2 for frame 2 
-        self.heading2 = Label(self.frame2, text="SEARCH Trainings", font=('Microsoft Yahei UI Light', 20, 'bold'), bg=self.bg_color, fg='#00043C')
+        self.heading2 = Label(self.frame2, text="Generate Report", font=('Microsoft Yahei UI Light', 20, 'bold'), bg=self.bg_color, fg='#00043C')
         self.heading2.pack(padx=10, pady=10, side='top')
+
+        # def get_selected_date():
+        #     selected_date = cal.get_date()
+        #     print("Selected Date:", selected_date)
+
+        # # Create a Calendar widget
+        # cal = Calendar(self.frame2, selectmode="day", date_pattern="dd/MM/yyyy")
+        # cal.pack(pady=20)
+
+        # # Create a button to retrieve the selected date
+        # select_button = ttk.Button(self.frame2, text="Select Date", command=get_selected_date)
+        # select_button.pack(pady=10)
                 
         # Add a heading 4 in frame 2
-        self.subheading21 = Label(self.frame2, text="Choose the Month and Year", font=('Microsoft Yahei UI Light', 12), bg=self.bg_color, fg='#00043C')
-        self.subheading21.pack(padx=10, pady=10)
+        self.subheading3 = Label(self.frame2, text="select date", font=('Microsoft Yahei UI Light', 12), bg=self.bg_color, fg='#00043C')
+        self.subheading3.pack(padx=10, pady=10)
 
         frameinside = Frame(self.frame2, background=self.bg_color)
         frameinside.pack( ipadx=10, ipady=10)
 
-        frameinside2 = Frame(self.frame2, background=self.bg_color)
-        frameinside2.pack( ipadx=10, ipady=10)
-
         def generate_date():
-            month = self.month_combo.get()
-            year = self.year_combo.get()
+            month = month_combo.get()
+            year = year_combo.get()
 
             # Generate the complete date
             date_str = f"{month}/01/{year}"
             print("Generated Date:", date_str)
 
+
+        # Month Dropdown
+        
+        # # month_label = ttk.Label(self.frame2, text="Month:")
+        # month_label.pack()
+        # # month_combo = ttk.Combobox(self.frame2, values=[
+        # #     '01', '02', '03', '04',
+        # #     '05', '06', '07', '08',
+        # #     '09', '10', '11', '12'
+        # # ])
+        # month_combo.pack()
+
+        # # Year Dropdown
+        # year_label = ttk.Label(self.frame2, text="Year:")
+        # year_label.pack()
+
+        # # Get current year
+        # current_year = date.today().year
+
+        # # Create a list of years from the current year up to 10 years in the future
+        # year_values = [str(year) for year in range(current_year - 10, current_year +1)]
+
+        # year_combo = ttk.Combobox(self.frame2, values=year_values)
+        # # year_combo.packside='top'()
+        # year_combo.pack()
+
+        # # Generate Date Button
+        # generate_button = ttk.Button(self.frame2, text="Generate Date", command=generate_date)
+        # generate_button.pack(pady=20)
+
         month_label = ttk.Label(frameinside,  font=('Microsoft Yahei UI Light', 10), text="Month:",background=self.bg_color)
         month_label.pack(padx=5, side='left')
         
-        self.month_combo = ttk.Combobox(frameinside, values=['01', '02', '03', '04','05', '06', '07', '08','09', '10', '11', '12'], width=10)
-        self.month_combo.configure(font=("Helvetica", 10), background="blue")
-        self.month_combo.set('month')
-        self.month_combo.pack(padx=5, side='left')
+        month_combo = ttk.Combobox(frameinside, values=['01', '02', '03', '04','05', '06', '07', '08','09', '10', '11', '12'], width=10)
+        month_combo.configure(font=("Helvetica", 10), background="blue")
+        month_combo.set('month')
+        month_combo.pack(padx=5, side='left')
 
         # Year Dropdown
-        year_label = ttk.Label(frameinside2 ,font=('Microsoft Yahei UI Light', 12), text="Year:", background=self.bg_color)
-        year_label.pack(padx=5,side='left')
+        year_label = ttk.Label(frameinside ,font=('Microsoft Yahei UI Light', 12), text="Year:", background=self.bg_color)
+        year_label.pack(padx=5, side='left')
 
         # Get current year
         current_year = date.today().year
@@ -121,45 +152,44 @@ class HomePage:
         # Create a list of years from the current year up to 10 years in the future
         year_values = [str(year) for year in range(current_year - 10, current_year +1)]
 
-        self.year_combo = ttk.Combobox(frameinside2, values=year_values, width=10)
-        # self.year_combo.packside='top'()
-        self.year_combo.configure(font=("Helvetica", 10), background="blue")
-        self.year_combo.set('year')
-        self.year_combo.pack(padx=5, side='left')
+        year_combo = ttk.Combobox(frameinside, values=year_values, width=10)
+        # year_combo.packside='top'()
+        year_combo.configure(font=("Helvetica", 10), background="blue")
+        year_combo.set('year')
+        year_combo.pack(padx=5, side='left')
+
 
         # Generate Date Button
-        self.select_date_button = Button(self.frame2, text="Select Date",font=("Helvetica", 12, 'bold'), bg="sky blue", fg="#ffffff", command=self.search_dates)
-        self.select_date_button.pack(padx=10, pady=10)
+        generate_button = ttk.Button(self.frame2, text="Select Date", command=generate_date)
+        generate_button.pack(pady=5)
 
-        # ----------------------------------------- FRAME 03
 
-        self.heading3 = Label(self.frame3, text="Generate Report", font=('Microsoft Yahei UI Light', 20, 'bold'), bg=self.bg_color, fg='#00043C')
-        self.heading3.pack(padx=10, pady=10, side='top')
-
-        # Add a heading 3 in frame 3
-        self.subheading31 = Label(self.frame3, text="Select options from Dropdown", font=('Microsoft Yahei UI Light', 12), bg=self.bg_color, fg='#00043C')
-        self.subheading31.pack(padx=10, pady=10)
+        # Add a heading 3 in frame 2
+        self.subheading2 = Label(self.frame2, text="Select options from Dropdown", font=('Microsoft Yahei UI Light', 14), bg=self.bg_color, fg='#00043C')
+        self.subheading2.pack(padx=10, pady=10)
 
         # Create the first dropdown
         self.options_list1 = ["Select", "Gender", "State", "Organization Sector", "Organization belongs to SME/Non-SME","Officer belongs to SC/ST (Yes/No)", "Officer belongs to PWD category (Yes/No)"]
         
-        self.dropdown1 = ttk.Combobox(self.frame3, values=self.options_list1, state="readonly")
+        self.dropdown1 = ttk.Combobox(self.frame2, values=self.options_list1, state="readonly")
         self.dropdown1.set("Select")
-        self.dropdown1.configure(font=("Helvetica", 12), background="blue")
+        self.dropdown1.configure(font=("Helvetica", 14), background="blue")
+        
+        
         self.dropdown1.pack(padx=10, pady=(10, 10))
 
         # Create the second dropdown
         self.options_list2 = []
 
-        self.dropdown2 = ttk.Combobox(self.frame3, values=self.options_list2, state="readonly")
+        self.dropdown2 = ttk.Combobox(self.frame2, values=self.options_list2, state="readonly")
         self.dropdown2.set("Select")
-        self.dropdown2.configure(font=("Helvetica", 12), background="blue")
+        self.dropdown2.configure(font=("Helvetica", 14), background="blue")
         self.dropdown2.pack(padx=10, pady=(10, 10))
 
         self.dropdown1.bind("<<ComboboxSelected>>", self.update_dropdown2)
 
         # Add a button to *generate report* in frame 2
-        self.report_button = Button(self.frame3, text="Generate", font=("Helvetica", 12, 'bold'), bg="#FF9800", fg="#ffffff", command = self.fetch_data)
+        self.report_button = Button(self.frame2, text="Generate", font=("Helvetica", 16, 'bold'), bg="#FF9800", fg="#ffffff", command = self.fetch_data)
         self.report_button.pack(padx=10, pady=10)
 
     def update_dropdown2(self, event):
@@ -326,12 +356,6 @@ class HomePage:
         # Obtain the user input for column name and search value
         column = self.dropdown1.get()
         value = self.dropdown2.get()
-        month = self.month_combo.get()
-        year = self.year_combo.get()
-
-        if column == 'Select' or value == 'Select':
-            messagebox.showinfo("Select Data", "Choose a Column and VAlue")
-            return
 
         column_name = column_mapping[column]
 
@@ -342,6 +366,8 @@ class HomePage:
         try: 
             # Query 1
             query1 = ''' SELECT (SELECT COUNT(*) FROM trainingsdb) AS total_candidates, (SELECT COUNT(*) FROM trainingsdb WHERE LOWER(gender) LIKE LOWER('%female%')) AS total_females, (SELECT COUNT(*) FROM trainingsdb WHERE (OfficerBelongsToSCOrST) LIKE LOWER('%yes%')) AS SC_ST_candidates, COUNT(DISTINCT State) AS total_distinct_states FROM trainingsdb; '''
+            
+            # Get the result row
             self.cursor.execute(query1)
             result1 = self.cursor.fetchall()
 
@@ -350,67 +376,62 @@ class HomePage:
             # Combine column names and result rows
             rows_with_column_names = [columns] + list(result1)
             # Print the result as a table
-            print('\n','fetching data from database!')
             for row in rows_with_column_names:
                 print("{:<20} {:<20} {:<20} {:<20}".format(*row))
 
-            print ('\n',column,":",value,'\n')
+            print('')
+            print (column,value)
+            print('')
 
-            #  performing query for all data in dataBase
-            if (month == 'month') or (year == 'year'):
+            # Query 2
 
-                # Fetch the count of rows from the result
-                query2 = f"SELECT COUNT(*) FROM trainingsdb WHERE LOWER({column_name}) = LOWER('{value}' )"
-                self.cursor.execute(query2)
-                result2 = self.cursor.fetchall()
-                r = len(result2)
+            # Check if the user input matches any keys in the mapping dictionary
+            # if column in column_mapping:
+            #     # Get the corresponding column name from the mapping dictionary
+            #     column_name = column_mapping[column]
+            # else:
+            #     print("Invalid column name input.")
+            #     messagebox.showinfo('column', "column not present!!")
+            #     return
 
-                print( f"COUNT of {column} with value {value} : {r}")
+            # Construct and execute the SQL query 
 
-                if len(result2) == 0:
-                    print("NONE records match!")
-                    messagebox.showinfo('Empty Set', 'NO record available in the database')
-                else:
-                    # Fetch all the rows from the result
-                    query3 = f"SELECT * FROM trainingsdb WHERE LOWER({column_name}) = LOWER('{value}')"
-                    self.cursor.execute(query3)
-                    result3 = self.cursor.fetchall()
+            # Fetch all the rows from the result
+            query3 = f"SELECT COUNT(*) FROM trainingsdb WHERE LOWER({column_name}) = LOWER('{value}')"
+            self.cursor.execute(query3)
+            result3 = self.cursor.fetchall()
 
-                    messagebox.showinfo('RESULTS', str(len(result3)) + ' record available in the database')
-                    for row in result3:
-                        print(row)
-                        
-            
-            else:
-                #  performing query for selected date in the data in dataBase
-                # Fetch the count of rows from the result
-                query2 = f"SELECT COUNT(*) FROM trainingsdb WHERE LOWER({column_name}) = LOWER('{value}' and MONTH(TrainingProgramDate) = {month} AND YEAR(TrainingProgramDate) = {year})"
-                self.cursor.execute(query2)
-                result2 = self.cursor.fetchall()
-                r = len(result2)
-                print( f"COUNT of {column} with value {value} : {r}")
+            print( f"COUNT of {column} with value {value} : {result3}")
 
-                if len(result2) ==0:
-                    print("NONE records match!")
-                    messagebox.showinfo('Empty Set', 'NO record available in the database')
-                else:
-                    # Fetch all the rows from the result
-                    query3 = f"SELECT * FROM trainingsdb WHERE LOWER({column_name}) = LOWER('{value}' and MONTH(TrainingProgramDate) = {month} AND YEAR(TrainingProgramDate) = {year})"
-                    self.cursor.execute(query3)
-                    result3 = self.cursor.fetchall()
 
-                    messagebox.showinfo('RESULTS', str(len(result3)) + ' record available in the database')
-                    for row in result3:
-                        print(row)
-                        
+            # Fetch all the rows from the result
+            query2 = f"SELECT * FROM trainingsdb WHERE LOWER({column_name}) = LOWER('{value}')"
+            self.cursor.execute(query2)
+            result2 = self.cursor.fetchall()
 
-                    # # Get the column names
-                    # columns2 = [desc[0] for desc in self.cursor.description]
-                    # # Combine column names and result rows
-                    # rows_with_column_names = [columns2] + list(result2)
-                    # # Print the result as a table
-                    # for row in rows_with_column_names:
-                    #     print("{:<5} {:<5} {:<15} {:<10} {:<10} {:<5} {:<10} {:<10} {:<10} {:<10} {:<15} {:<20} {:<10} {:<5} {:<5}".format(*row))
+
+            # Get the column names
+            columns2 = [desc[0] for desc in self.cursor.description]
+            # Combine column names and result rows
+            rows_with_column_names = [columns2] + list(result2)
+            # Print the result as a table
+            for row in rows_with_column_names:
+                print("{:<5} {:<5} {:<15} {:<10} {:<10} {:<5} {:<10} {:<10} {:<10} {:<10} {:<15} {:<20} {:<10} {:<5} {:<5}".format(*row))
+            # Process the result as needed
+            # for row in result2:
+            #     print(row)
+
+            # # Get the result table
+            # query2 = f"SELECT * FROM trainingsdb WHERE {column_name} LIKE %s"
+            # search_pattern = '%' + column_value + '%'
+            # self.cursor.execute(query, (search_pattern,))
+
+            # result2 = cursor.fetchall()
+            # # Print the result as a table
+            # print (result2)
+
+            # print(columns)
+            # print(result)
 
         except mysql.connector.Error as e:
             print("Error executing the queries:", e)
@@ -419,52 +440,6 @@ class HomePage:
         
         self.cursor.close()
         self.conn.close()
-    
-    def search_dates(self):
-
-        # Connect to the MySQL database
-        self.conn = mysql.connector.connect( host = self.host, user = self.username, password = self.password, database = self.database )
-        self.cursor = self.conn.cursor()
-
-        month = self.month_combo.get()
-        year = self.year_combo.get()
-        print('Searching Trainings for the Date: ',month+'/01/'+year)
-    
-        if (month == 'month') or (year == 'year'):
-            messagebox.showinfo("Select Date", "Choose a Month and Year")
-            return 
-        try: 
-            query = f"SELECT TrainingProgramName FROM trainingsdb WHERE MONTH(TrainingProgramDate) = {month} AND YEAR(TrainingProgramDate) = {year};"
-            self.cursor.execute(query)
-            result = self.cursor.fetchall()
-
-            if self.cursor.nextset():
-                # Move to the next result set and consume any unread result
-                pass
-
-            if len(result) == 0:
-                messagebox.showinfo('Empty Set','No DATA is available in the selected date!!!')
-                print('Empty Set','No DATA is available in the selected date!!!')
-            else:
-                for row in result:
-                    print(row)
-
-            query2 = f"SELECT COUNT(*) FROM trainingsdb WHERE MONTH(TrainingProgramDate) = {month} AND YEAR(TrainingProgramDate) = {year};"
-            self.cursor.execute(query2)
-            result2 = self.cursor.fetchall()
-            print('Total number of trainings: ', result2)
-            # for row in results:
-            #     print(row)
-            # print(results2)            
-
-        except Error as e:
-            print("Error searching dates:", str(e))
-            messagebox.showerror('Error searching dates:', str(e))
-
-        self.conn.commit()
-        self.cursor.close()
-        self.conn.close()
-
 
     def generate_report():
         pass

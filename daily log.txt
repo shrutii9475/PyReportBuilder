@@ -228,3 +228,27 @@ Added the files in git github.
 07072023
 
 updated def send_data_to_database
+
+10/07/23
+
+updated def fetch_data, def search_date
+
+To search for a date in a MySQL database table named sampledb with a column named TrainingProgramDate2, you can use the DATE or DATE_FORMAT function along with the desired date format. Here are four examples of SQL queries to search for a date:
+
+Search for an exact date:
+sql
+Copy code
+SELECT * FROM sampledb WHERE DATE(TrainingProgramDate2) = '2023-07-01';
+Search for a date range:
+sql
+Copy code
+SELECT * FROM sampledb WHERE TrainingProgramDate2 BETWEEN '2023-07-01' AND '2023-07-31';
+Search for dates before a specific date:
+sql
+Copy code
+SELECT * FROM sampledb WHERE TrainingProgramDate2 < '2023-07-01';
+Search for dates after a specific date:
+sql
+Copy code
+SELECT * FROM sampledb WHERE TrainingProgramDate2 > '2023-07-01';
+In these examples, '2023-07-01' represents the date you want to search for. Adjust the date format according to the format stored in your database column.
