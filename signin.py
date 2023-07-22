@@ -11,43 +11,51 @@ import pymysql
 def login_user():
     if usernameEntry.get()=='' or passwordEntry.get()=='' :
         messagebox.showerror('Error', 'All fields are required!')
+        return
+    
+    try:
+        con = pymysql.connect(host='localhost',user='root',password='Shruti098%', database = 'userdata')
+        mycursor = con.cursor()
+    except:
+        messagebox.showerror('Error', 'Connection is not established!')
+        return
+    # print ('connection ban gya')
+
+    query = 'use userdata;'
+    mycursor.execute(query)
+    query = 'select * from data where username=%s and password=%s;'
+    mycursor.execute(query,(usernameEntry.get(),passwordEntry.get()))
+    
+    row = mycursor.fetchone()
+
+    if row == None:
+        messagebox.showerror("Error","Invalid username or password")
     else:
-        try:
-            con = pymysql.connect(host='localhost',user='root',password='Shruti098%')
-            mycursor = con.cursor()
-        except:
-            messagebox.showerror(('Error', 'Connection is not established!'))
-            return
-        # print ('connection ban gya')
-        query = 'use userdata'
-        mycursor.execute(query)
-        query = 'select * from data where username=%s and password=%s'
-        mycursor.execute(query,(usernameEntry.get(),passwordEntry.get()))
-        row = mycursor.fetchone()
-        if row == None:
-            messagebox.showerror("Error","Invalid username or password")
-        else:
-            messagebox.showinfo('Welcome','Login is Successfull !!')
-            # home_page()
-            login_window.withdraw()
-            home_page = HomePage(login_window)
-            home_page.run()
+        messagebox.showinfo('Welcome','Login is Successfull !!')
+        # home_page()
+        login_window.withdraw()
+        home_page = HomePage(login_window)
+        home_page.run()
 
 
 # FUNCTIONALITY
 def signup_page():
     login_window.destroy()
     import signup
+
 def on_entry(event):
     if usernameEntry.get() == 'Username':
         usernameEntry.delete(0, END)
+
 def on_entry1(event):
     if passwordEntry.get() == 'Password':
         passwordEntry.delete(0, END)
+
 def hide():
     openeye.config(file='images/closeye.png')
     passwordEntry.config(show='*')
     eyeButton.config(command=show)
+
 def show():
     openeye.config(file='images/openeye.png')
     passwordEntry.config(show='')
