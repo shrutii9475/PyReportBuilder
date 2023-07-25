@@ -8,6 +8,7 @@ import pymysql
 #     login_window.destroy()
 #     import home
 
+
 def login_user():
     if usernameEntry.get()=='' or passwordEntry.get()=='' :
         messagebox.showerror('Error', 'All fields are required!')
@@ -19,7 +20,6 @@ def login_user():
     except:
         messagebox.showerror('Error', 'Connection is not established!')
         return
-    # print ('connection ban gya')
 
     query = 'use userdata;'
     mycursor.execute(query)
@@ -33,6 +33,7 @@ def login_user():
     else:
         messagebox.showinfo('Welcome','Login is Successfull !!')
         # home_page()
+        clear()
         login_window.withdraw()
         home_page = HomePage(login_window)
         home_page.run()
@@ -43,6 +44,17 @@ def signup_page():
     login_window.destroy()
     import signup
 
+
+# This function is used to clear the text in the username and password entry fields. It sets the text to default values 'Username' and 'Password'.
+def clear():
+    usernameEntry.delete(0,END)
+    passwordEntry.delete(0,END)
+
+    usernameEntry.insert(0, 'Username')
+    passwordEntry.insert(0, 'Password')
+
+
+
 def on_entry(event):
     if usernameEntry.get() == 'Username':
         usernameEntry.delete(0, END)
@@ -50,6 +62,11 @@ def on_entry(event):
 def on_entry1(event):
     if passwordEntry.get() == 'Password':
         passwordEntry.delete(0, END)
+        # passwordEntry.config(show='*')
+        hide()
+
+# Function to handle password entry
+# This function is called when the user focuses on the password entry field. It checks if the current text is 'Password' and clears it to allow the user to enter the actual password. The password is also masked with asterisks by setting show='*' in the password entry widget.
 
 def hide():
     openeye.config(file='images/closeye.png')
@@ -66,7 +83,7 @@ def show():
 login_window = Tk()
 login_window.geometry('994x664')
 login_window.resizable(0, 0)
-login_window.title('Login Page')
+login_window.title('PyReportBuilder-Login Page')
 
 # background~
 bgImage = ImageTk.PhotoImage(file='images/bg.jpg')
@@ -81,43 +98,63 @@ heading = Label(login_window, text="USER LOGIN", font=(
 heading.place(x=605, y=120)
 
 # username
-usernameEntry = Entry(login_window, width=25, font=(
-    'Microsoft Yahei UI Light', 11, 'bold'), bd=0, bg='white', fg='#00043C')
-usernameEntry.place(x=580, y=200)
+usernameLable = Label(login_window, text='User Name', font=('Microsoft Yahei UI Light', 11, 'bold'), bg='white', fg='#00043C')
+usernameLable.place(x=580, y=185)
+usernameEntry = Entry(login_window, width=25, font=('Microsoft Yahei UI Light', 11, 'bold'), bd=0, bg='white', fg='#00043C')
+usernameEntry.place(x=580, y=215)
+
+# usernameEntry = Entry(login_window, width=25, font=('Microsoft Yahei UI Light', 11, 'bold'), bd=0, bg='white', fg='#00043C')
+# usernameEntry.place(x=580, y=200)
 usernameEntry.insert(0, 'Username')
 usernameEntry.bind('<FocusIn>', on_entry)
 
+# UNDERLINE
+frame1 = Frame(login_window, bg='#00043C', width=250, height=2)
+frame1.place(x=580, y=235)
+
 # PASSWORD
-passwordEntry = Entry(login_window, width=25, font=(
-    'Microsoft Yahei UI Light', 11, 'bold'), bd=0, bg='white', fg='#00043C')
-passwordEntry.place(x=580, y=260)
+passwordLable = Label(login_window, text='Password', font=('Microsoft Yahei UI Light', 11, 'bold'), bg='white', fg='#00043C')
+passwordLable.place(x=580, y=260)
+passwordEntry = Entry(login_window, width=25, font=('Microsoft Yahei UI Light', 11, 'bold'), bd=0, bg='white', fg='#00043C')
+passwordEntry.place(x=580, y=290)
+
+# passwordEntry = Entry(login_window, width=25, font=('Microsoft Yahei UI Light', 11, 'bold'), bd=0, bg='white', fg='#00043C')
+# passwordEntry.place(x=580, y=260)
 passwordEntry.insert(0, 'Password')
 passwordEntry.bind('<FocusIn>', on_entry1)
 
-# UNDERLINE
-frame1 = Frame(login_window, bg='#00043C', width=250, height=2)
-frame1.place(x=580, y=222)
-
 frame2 = Frame(login_window, bg='#00043C', width=250, height=2)
-frame2.place(x=580, y=282)
+frame2.place(x=580, y=310)
+
+
+
+# UNDERLINE
+# frame1 = Frame(login_window, bg='#00043C', width=250, height=2)
+# frame1.place(x=580, y=222)
+
+# frame2 = Frame(login_window, bg='#00043C', width=250, height=2)
+# frame2.place(x=580, y=282)
 
 openeye = PhotoImage(file='images/openeye.png')
-closeye = PhotoImage(file='images/closeye.png')
+# closeye = PhotoImage(file='images/closeye.png')
 
 eyeButton = Button(login_window, image=openeye, bd=0, bg='white',
                    activebackground='white', cursor='hand2', command=hide)
-eyeButton.place(x=800, y=255)
+# eyeButton.place(x=800, y=255)
+eyeButton.place(x=800, y=284)
 
 # forget password
-forgetButton = Button(login_window, text='Forgot Password ?', font=('Microsoft Yahei UI Light',
-                      9, 'bold'), bd=0, bg='white', fg='#00043C', activebackground='#FFA3AC', cursor='hand2')
-forgetButton.place(x=700, y=290)
+# forgetButton = Button(login_window, text='Forgot Password ?', font=('Microsoft Yahei UI Light',
+#                       9, 'bold'), bd=0, bg='white', fg='#00043C', activebackground='#FFA3AC', cursor='hand2')
+# forgetButton.place(x=700, y=290)
 
 # login button   #ffa3ac
 loginButton = Button(login_window, text='Login', font=('Open Sans', 16, 'bold'), bg='#FFA3AC',
                      fg='white', activeforeground='#FFA3AC', activebackground='#00043C', cursor='hand2', bd=0, width=19, command=login_user)
 loginButton.place(x=580, y=370)
 
+
+# ##########
 orLabel = Label(login_window, text='-------------- OR ---------------',
                 font=('Open Sans', 16), bg='white', fg='#00043C')
 orLabel.place(x=580, y=420)

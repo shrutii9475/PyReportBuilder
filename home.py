@@ -18,7 +18,7 @@ class HomePage:
         # def __init__(self):
         # GUI PART
         self.home_window = Tk()
-        self.home_window.title("Home Page")
+        self.home_window.title("PyReportBuilder-Home Page")
         self.home_window.geometry('900x600')
         self.home_window.resizable(0, 0)
 
@@ -35,7 +35,7 @@ class HomePage:
         heading_label.pack( pady=(10,0),side=TOP)
 
         # logout button        
-        logout_button = Button(self.head_frame, text="Log Out", font=("Helvetica", 11, 'bold'), bg='red', fg='white', command=self.logout)
+        logout_button = Button(self.head_frame, text="Log Out", font=("Helvetica", 11, 'bold'), bg='red', fg='white', cursor='hand2', command=self.logout)
         logout_button.pack(padx=10,side=RIGHT)
         
         # Connect to DB button        
@@ -97,7 +97,7 @@ class HomePage:
             "November": 11,
             "December": 12
         }
-
+        self.excel_data = pd.DataFrame()
         self.training_name = ''
         self.training_date = ''
 
@@ -121,7 +121,7 @@ class HomePage:
         frame1.pack(padx=10)
 
         # Add a button *Choose a File* in FOOTER FRAME 
-        choose_excel_button = Button(frame1, text='Choose Excel File', font=("Helvetica", 12, 'bold'), bg='green3', fg='white', command=self.open_file)
+        choose_excel_button = Button(frame1, text='Choose Excel File', font=("Helvetica", 12, 'bold'), bg='green3', fg='white', cursor='hand2', command=self.open_file)
         choose_excel_button.pack(side=LEFT)
 
         # Add a Label 1 in FOOTER FRAME 
@@ -129,7 +129,7 @@ class HomePage:
         self.filename_label.pack(side=BOTTOM, pady=10)
 
         # Add a button  *Upload to DataBase*  in FOOTER FRAME 
-        upload_button = Button(frame1, text='Upload', font=("Helvetica", 12, 'bold'), bg='green3', fg='white', command=self.send_data_to_database)
+        upload_button = Button(frame1, text='Upload', font=("Helvetica", 12, 'bold'), bg='green3', fg='white', cursor='hand2', command=self.send_data_to_database)
         upload_button.pack(side=LEFT)
 
         # ----------------------------------------- BODY FRAME 02
@@ -143,14 +143,6 @@ class HomePage:
 
         frameinside = Frame(frame2, background=self.bg_color )
         frameinside.pack( ipadx=10, ipady=10, pady=10)
-
-        # def generate_date():
-        #     month = self.month_combo.get()
-        #     year = self.year_combo.get()
-
-        #     # Generate the complete date
-        #     date_str = f"{month}/01/{year}"
-        #     print("Generated Date:", date_str)
 
         month_label = ttk.Label(frameinside,  font=('Microsoft Yahei UI Light', 10), text="Month:",background=self.bg_color)
         month_label.pack(padx=5, side='left')
@@ -177,7 +169,7 @@ class HomePage:
         self.year_combo.pack(padx=5, side='left')
 
         # Serch training Button
-        search_training_button = Button(frameinside, text="Search",font=("Helvetica", 10, 'bold'), bg=self.bg_color, fg="black", command=self.search_trainings)
+        search_training_button = Button(frameinside, text="Search",font=("Helvetica", 10, 'bold'), bg=self.bg_color,  cursor='hand2', fg="black", command=self.search_trainings)
         search_training_button.pack(padx=(20,0),  side=LEFT)
 
         # Add a Label 1 in FOOTER FRAME 
@@ -216,8 +208,11 @@ class HomePage:
         self.dropdown1.bind("<<ComboboxSelected>>", self.update_dropdown2)
 
         # Add a button to *generate report* in frame 2
-        generate_report_button = Button(frame3, text="Generate Report", font=("Helvetica", 12, 'bold'), bg="#FF9800", fg="#ffffff", command = self.fetch_data)
+        generate_report_button = Button(frame3, text="Generate Report", font=("Helvetica", 12, 'bold'), bg="#FF9800", fg="#ffffff", cursor='hand2',  command = self.fetch_data)
         generate_report_button.pack(padx=10, pady=10, side=BOTTOM)
+
+        # Handle the window close event for the home window
+        self.home_window.protocol("WM_DELETE_WINDOW", self.quit)
 
     def update_dropdown2(self, event):
 
@@ -229,9 +224,11 @@ class HomePage:
         elif selected_option == "Gender":
             self.options_list2 = ["Male", "Female"]
             # break
-        elif selected_option == "State":
-            self.options_list2 = ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala","Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "New Delhi", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttarakhand", "Uttar Pradesh", "West Bengal"]
+        # elif selected_option == "State":
+        #     self.options_list2 = ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala","Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "New Delhi", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttarakhand", "Uttar Pradesh", "West Bengal"]
             # break
+        elif selected_option == "State":
+            self.options_list2 = ['Andaman and Nicobar', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chandigarh', 'Chhattisgarh', 'Dadra and Nagar Haveli', 'Daman and Diu', 'Delhi', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jammu and Kashmir', 'Jharkhand', 'Karnataka', 'Kerala', 'Ladakh', 'Lakshadweep', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Puducherry', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal']
         elif selected_option == "Organization Sector":
             self.options_list2 = ('Central Government', 'State Government', 'Defence', 'PSU', 'Finance','Banking', 'Power', 'Energy', 'Telecom', 'Transport','Manufacturing', 'LEA', 'Academia', 'Private', 'IT', 'ITeS')
             # break
@@ -258,7 +255,8 @@ class HomePage:
             result = messagebox.askquestion(
                 "Quit", "Are you sure you want to quit?")
             if result == "yes":
-                self.frame2.destroy()
+                # self.frame2.destroy()
+                quit()
 
         # making a menu bar
         my_menu = Menu(self.home_window)
@@ -288,9 +286,10 @@ class HomePage:
             # messagebox.showinfo(title="Success", message="Excel file opened successfully.")
             
         else:
-            del self.excel_data
+            
             self.filename_label.config(text="❌ File Loading Failed", fg="red")
             messagebox.showinfo(title="Failure", message="Excel file opening failed. Try Again!!!")
+            self.excel_data = self.excel_data.drop(index=self.excel_data.index, columns=self.excel_data.columns)
 
             # self.tick_mark_label.config(text="❌ File Loading Failed", fg="red")
 
@@ -323,7 +322,6 @@ class HomePage:
         for index, row in self.excel_data.iterrows():
             record_data = []
             # for value in row:
-            
             # for column_name, value in row.items():
 
             for column_name in row.index:
@@ -334,9 +332,7 @@ class HomePage:
                     else:
                         record_data.append(value)
                 
-            # print('index = ',index)
-            # print('row = ',row)
-            # print('record_data = ',record_data)
+            # print('index = ',index, ' record = ',record_data)
             try:
                 cursor.execute(insert_query, record_data)  # Execute the query
                 conn.commit() 
@@ -400,19 +396,20 @@ class HomePage:
         month = self.month_combo.get()
         year = self.year_combo.get()
 
-        # month_number = home_page.month_name_to_number.get(month)
-        month_number = self.month_name_to_number[month]
-    
         # checks if the user has selected both a month and a year
         if (month == 'month') or (year == 'year'):
             messagebox.showinfo("Select Date", "Choose a Month and Year")
             return 
 
+        # month_number = home_page.month_name_to_number.get(month)
+        month_number = self.month_name_to_number[month]
+    
         print('Searching Trainings for the Date: ',str(month_number)+'/01/'+year)
 
             # SQL query to Search for the training program names from the database table.
         try: 
-            query = f"SELECT TrainingProgramName,TrainingProgramDate FROM trainingsdb WHERE MONTH(TrainingProgramDate) = {month_number} AND YEAR(TrainingProgramDate) = {year};"
+            # query = f"SELECT TrainingProgramName,TrainingProgramDate FROM trainingsdb WHERE MONTH(TrainingProgramDate) = {month_number} AND YEAR(TrainingProgramDate) = {year};"
+            query = f"SELECT TrainingProgramName, TrainingProgramDate FROM trainingsdb WHERE MONTH(TrainingProgramDate) = {month_number} AND YEAR(TrainingProgramDate) = {year} ORDER BY TrainingProgramDate ASC;"
             cursor.execute(query)
             result = cursor.fetchall()
 
@@ -483,7 +480,7 @@ class HomePage:
                 else:
                     # Process and display the search results
                     result_df_table = pd.DataFrame(result)
-                    print(result_df_table)
+                    # print(result_df_table)
                     # for row in result:
                     #     print(row)
                 
@@ -505,7 +502,7 @@ class HomePage:
                 else:
                     # Process and display the search results
                     result_df_table = pd.DataFrame(result)
-                    print(result_df_table)
+                    # print(result_df_table)
                     # for row in result:
                     #     print(row)
 
@@ -758,20 +755,27 @@ class HomePage:
         document.save(file_name)
         os.startfile(file_name)
 
-
     def logout(self):
-        self.home_window.destroy()
-        self.login_window.deiconify()
+        # self.home_window.destroy()
+        # self.login_window.deiconify()
+        if self.home_window:
+            self.home_window.destroy()
+        if self.login_window:
+            self.login_window.deiconify()
 
     def run(self):
         self.home_window.mainloop()
 
+    def quit(self):
+            if self.home_window:
+                self.home_window.destroy()
+
+            if self.login_window:
+                self.login_window.destroy()
 
 # Example usage:
 if __name__ == "__main__":
     home_page = HomePage(login_window)
     home_page = HomePage()
     home_page.run()
-
-
 
